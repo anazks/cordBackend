@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const router = require('./Auth/Router/authRouter');
-const institutionRouter = require('./Auth/Router/authRouter');
+const authRouter = require('./Auth/Router/authRouter');
 const dbConnect = require('./dbConfig');
+const instituteRouter = require('./Institute/Router/Router');
 
 const port = process.env.PORT || 3000;
 app.use(cors());
@@ -14,7 +14,8 @@ app.get('/', (req, res) => {
     res.send('Welcome to the API!');
 });
 
-app.use('/Auth/owner',institutionRouter)
+app.use('/Auth/owner',authRouter)
+app.use('/institute',instituteRouter)
 
 async function db() {
     try {

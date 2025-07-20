@@ -30,6 +30,20 @@ const institutionLogin = async (req,res) => {
     }
 }
 
+const createBranch = async (req,res) => {
+    try {
+        const data = req.body;
+        const branch = await createBranchFunction(data)
+        res.json({
+            success:true,
+            message:"branch is successfully created",
+            branch
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
  
 
-module.exports = {institutionLogin, institutionRegister}
+module.exports = {institutionLogin, institutionRegister, }

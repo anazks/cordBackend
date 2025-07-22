@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to the API!');
 });
 
-app.use('/Auth/owner',authRouter)
+app.use('/institute/auth',authRouter)
 app.use('/institute',instituteRouter)
 
 async function db() {

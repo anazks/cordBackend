@@ -4,6 +4,15 @@ const { createBranch,getAllBranches,branchDelete,addStudent,deleteStudent,viewAl
 const verifyToken = require('../../Middleware/verifyToken');
 const { verify } = require('jsonwebtoken');
 
+
+router.get('/test', (req, res) => {
+    res.json({ 
+        message: 'Auth router is working!',
+        timestamp: new Date().toISOString(),
+        route: '/test'
+    });
+});
+
 router.route('/branch').post(verifyToken,createBranch)
 router.route('/branch/:id').get(verifyToken,getAllBranches)
 router.route('/branch/:id').delete(verifyToken,branchDelete)

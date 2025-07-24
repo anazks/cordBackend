@@ -13,6 +13,11 @@ const studentSchema = new mongoose.Schema({
         ref:"Course",
         required:true
     },
+    batchId:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"Batch",
+      required:true
+    },
     name:{
         type:String,
         required:true

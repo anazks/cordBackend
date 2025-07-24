@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 const institute = require('../Models/Institute')
 
-const branchSchema = new Schema({
+const courseSchema = new Schema({
     instituteId:{
         type: mongoose.Schema.Types.ObjectId,
         ref:institute,
@@ -27,6 +27,6 @@ const branchSchema = new Schema({
 
 },{timestamps:true})
 
-const Branch = mongoose.model('Branch',branchSchema);
+const Course = mongoose.model('Course',courseSchema);
 
-module.exports = Branch;
+module.exports = Course;

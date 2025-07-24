@@ -1,29 +1,30 @@
 const express = require('express')
-const Branch = require('../Models/Branch');
+const Course = require('../Models/Course');
 const { findByIdAndDelete } = require('../Models/Institute');
 const Student = require('../Models/Student')
+const Batch = require('../Models/Batch')
 
-module.exports.createBranchFunction = async (data) => {
+module.exports.createCourseFunction = async (data) => {
     try {
-        let branch = await Branch.create(data);
-        return branch
+        let course = await Course.create(data);
+        return course
     } catch (error) {
         console.log(error)
     }
 }
 
-module.exports.getAllBranchesFunction = async (instituteId) => {
+module.exports.getAllCourseFunction = async (instituteId) => {
     try {
-        let branches = await Branch.find({instituteId:instituteId})
-        return branches
+        let course = await Course.find({instituteId:instituteId})
+        return course
     } catch (error) {
         console.log(error)
     }
 }
 
-module.exports.deleteBranchFunction = async (branchId) => {
+module.exports.deleteCourseFunction = async (courseId) => {
     try {
-        let branch = await Branch.findByIdAndDelete(branchId)
+        let Course = await Course.findByIdAndDelete(CourseId)
     } catch (error) {
         console.log(error)
     }
@@ -46,12 +47,30 @@ module.exports.deleteStudentFunction = async (studentId) => {
     }
 }
 
-module.exports.viewAllStudentsFunction = async (branchId) => {
+module.exports.viewAllStudentsFunction = async (courseId) => {
     try {
-        let students = await Student.find({branchId:branchId})
+        let students = await Student.find({courseId:courseId})
         return students;
     } catch (error) {
         console.log(error)
     }
 }
 
+module.exports.createBatchFunction = async (data) => {
+    try {
+        batch = await Batch.create(data);
+        return batch
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports.getAllBatchesFunction = async (courseId) => {
+    try {
+        console.log(courseId)
+        batch = await Batch.find({courseId:courseId})
+        return batch
+    } catch (error) {
+        console.error(error)
+    }
+}

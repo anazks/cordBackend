@@ -1,4 +1,4 @@
-const Branch = require('./Branch')
+const Course = require('./Course')
 const mongoose = require('mongoose')
 const Institute = require('./Institute')
 
@@ -8,9 +8,9 @@ const studentSchema = new mongoose.Schema({
         ref:'Institute',
         required:true
     },
-    branchId:{
+    courseId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Branch",
+        ref:"Course",
         required:true
     },
     name:{
@@ -29,7 +29,7 @@ const studentSchema = new mongoose.Schema({
 
 studentSchema.post('save', async function (doc) {
   try {
-    await Branch.findByIdAndUpdate(doc.branchId, {
+    await Course.findByIdAndUpdate(doc.courseId, {
       $inc: { totalStudents: 1 } // increase by 1
     });
   } catch (err) {
@@ -39,8 +39,8 @@ studentSchema.post('save', async function (doc) {
 
 studentSchema.post('findOneAndDelete', async function (doc) {
   try {
-    if (doc?.branchId) {
-      await Branch.findByIdAndUpdate(doc.branchId, {
+    if (doc?.courseId) {
+      await Course.findByIdAndUpdate(doc.courseId, {
         $inc: { totalStudents: -1 } // decrease by 1
       });
     }

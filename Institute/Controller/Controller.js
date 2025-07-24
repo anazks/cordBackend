@@ -1,48 +1,48 @@
 const express = require('express')
-const { createBranchFunction,getAllBranchesFunction,deleteBranchFunction,addStudentFunction,deleteStudentFunction,viewAllStudentsFunction } = require('../Repo/Repo')
+const { createCourseFunction,getAllCourseFunction,deleteCourseFunction,addStudentFunction,deleteStudentFunction,viewAllStudentsFunction,createBatchFunction,getAllBatchesFunction } = require('../Repo/Repo')
 
-const createBranch = async (req,res) => {
+const createCourse = async (req,res) => {
     try {
         const data = req.body;
-        const branch = await createBranchFunction(data)
+        const course = await createCourseFunction(data)
         res.json({
             success:true,
-            message:"branch is successfully created",
-            branch
+            message:"course is successfully created",
+            course
         })
     } catch (error) {
         console.log(error)
     }
 }
 
-const getAllBranches = async (req,res) => {
+const getAllCourse = async (req,res) => {
     try {
         const instituteId = req.params.id
-        const branches = await getAllBranchesFunction(instituteId)
+        const course= await getAllCourseFunction(instituteId)
         res.status(200).json({
             success:true,
-            message:"successfully fetched all branches",
-            branches
+            message:"successfully fetched all coursees",
+            course
         })
     } catch (error) {
-        console.error('error in fetching branches',error)
+        console.error('error in fetching coursees',error)
         res.status(500).json({
             success:false,
-            message:"cant fetch the branches",
+            message:"cant fetch the coursees",
         })
     }
 }
 
-const branchDelete = async (req,res) => {
+const courseDelete = async (req,res) => {
     try {
-        const branchId = req.params.id;
-        const branch = await deleteBranchFunction(branchId)
+        const courseId = req.params.id;
+        const course = await deleteCourseFunction(courseId)
         res.status(200).json({
             succuss:true,
-            message:"successfully deleted the branch",
+            message:"successfully deleted the course",
         })
     } catch (error) {
-        console.error("error in  deleting branch",error)
+        console.error("error in  deleting course",error)
         res.status(500).json({
             success:false,
             message:"internal server error"
@@ -88,23 +88,60 @@ const deleteStudent = async (req,res) => {
 
 const viewAllStudents = async (req,res) => {
     try {
-        const branchId = req.params.id
-        const students = await viewAllStudentsFunction(branchId)
+        const courseId = req.params.id
+        const students = await viewAllStudentsFunction(courseId)
         res.status(200).json({
             success:true,
             message:"successfully fetched all students",
             students
         })
     } catch (error) {
-        console.error('error in fetching branches',error)
+        console.error('error in fetching coursees',error)
         res.status(500).json({
             success:false,
-            message:"cant fetch the branches",
+            message:"cant fetch the coursees",
         })
+    }
+}
+
+const createBatch = async (req,res) => { 
+    try {
+        const data = req.body
+        const batch = await createBatchFunction(data)
+        res.status(200).json({
+            success:true,
+            message:"successfully created batch",
+            batch
+        })
+    } catch (error) {
+        console.error('error in creating batch')
+        res.status(500).json({
+            success:false,
+            message:"internal server error"
+        })
+    }
+}
+
+const getAllBatches = async (req,res) => {
+    try {
+        const courseId = req.params.id
+        console.log('requet arrived')
+        const batches = await getAllBatchesFunction(courseId)
+        res.status(200).json({
+            success:true,
+            message:"successfully fetched the batches",
+            batches
+        })
+    } catch (error) {
+       console.error(error,"error in fetching batches") 
+       res.status(500).json({
+        success:false,
+        message:"internal server error"
+       })
     }
 }
 
 
 
 
-module.exports = { createBranch,getAllBranches,branchDelete,addStudent,deleteStudent,viewAllStudents }
+module.exports = { createCourse,getAllCourse,courseDelete,addStudent,deleteStudent,viewAllStudents,createBatch,getAllBatches }

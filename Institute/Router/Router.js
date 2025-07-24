@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createBranch,getAllBranches,branchDelete,addStudent,deleteStudent,viewAllStudents } = require('../Controller/Controller')
+const { createCourse,getAllCourse,courseDelete,addStudent,deleteStudent,viewAllStudents,createBatch,getAllBatches } = require('../Controller/Controller')
 const verifyToken = require('../../Middleware/verifyToken');
 const { verify } = require('jsonwebtoken');
 
@@ -13,11 +13,15 @@ router.get('/test', (req, res) => {
     });
 });
 
-router.route('/branch').post(verifyToken,createBranch)
-router.route('/branch/:id').get(verifyToken,getAllBranches)
-router.route('/branch/:id').delete(verifyToken,branchDelete)
+router.route('/course').post(verifyToken,createCourse)
+router.route('/course/:id').get(verifyToken,getAllCourse)
+router.route('/course/:id').delete(verifyToken,courseDelete)
 router.route('/student').post(verifyToken,addStudent)
 router.route('/student/:id').get(verifyToken,viewAllStudents)
 router.route('/student/:id').delete(verifyToken,deleteStudent)
+router.route('/batch').post(verifyToken,createBatch)
+router.route('/batch/:id').get(verifyToken,getAllBatches)
+router.route('payment').post(verifyToken,makePayment)
+
 
 module.exports = router;

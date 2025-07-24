@@ -30,14 +30,14 @@ const institutionLogin = async (req,res) => {
     }
 }
 
-const createBranch = async (req,res) => {
+const createCourse = async (req,res) => {
     try {
         const data = req.body;
-        const branch = await createBranchFunction(data)
+        const course = await createCourseFunction(data)
         res.json({
             success:true,
-            message:"branch is successfully created",
-            branch
+            message:"course is successfully created",
+            course
         })
     } catch (error) {
         console.log(error)

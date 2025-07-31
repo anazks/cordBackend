@@ -20,11 +20,18 @@ const institutionLogin = async (req,res) => {
     try {
         const data = req.body;
         institute = await institutionLoginFunction(data)
-        res.json({
+        if(institute == null){
+            res.json({
+                success: false,
+                message:"login failed",
+            })
+        }else{
+            res.json({
             success:true,
             message:"institute is successfully logined",
             institute
         })
+        }  
     } catch (error) {
         console.log(error)
     }

@@ -18,6 +18,7 @@ module.exports.hashPassword = async (data) => {
 module.exports.institutionLoginFunction = async (data) => {
     try {
         let institute = await findInstitute(data)
+        console.log(institute,"institute")
         console.log(institute,"user data")
         let {password} = data;
         console.log(data)

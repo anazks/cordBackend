@@ -74,3 +74,31 @@ module.exports.getAllBatchesFunction = async (courseId) => {
         console.error(error)
     }
 }
+
+
+
+module.exports.findMonthlyFees = async (studentId) => {
+    try {
+        // Step 1: Find student
+        const student = await Student.findById(studentId);
+        if (!student) {
+            throw new Error('Student not found');
+        }
+
+        // Step 2: Get courseId from student
+        const courseId = student.courseId;
+
+        // Step 3: Find course
+        const course = await Course.findById(courseId);
+        if (!course) {
+            throw new Error('Course not found');
+        }
+
+        // Step 4: Return monthlyFees
+        return course.monthlyFees;
+
+    } catch (error) {
+        console.error("findMonthlyFees error:", error);
+        throw error; // rethrow if needed
+    }
+};

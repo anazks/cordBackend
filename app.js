@@ -5,6 +5,10 @@ const cors = require('cors');
 const authRouter = require('./Auth/Router/authRouter');
 const dbConnect = require('./dbConfig');
 const instituteRouter = require('./Institute/Router/Router');
+const schedule = require('node-schedule');
+const findDueStudents = require('./Institute/Scheduler/findDueStudents');
+const sendDueReminders =require('./Institute/Scheduler/sendRemainder')
+
 
 const port = process.env.PORT || 3000;
 app.use(cors());
@@ -26,6 +30,9 @@ async function db() {
 }
 
 db()
+
+schedule.scheduleJob('*/10 * * * * *',findDueStudents)
+schedule.scheduleJob('*/10 * * * * *',sendDueReminders)
 
 app.listen(port, () => {    
     console.log(`Server is running on port ${port}`);

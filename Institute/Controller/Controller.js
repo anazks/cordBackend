@@ -1,5 +1,6 @@
 const express = require('express')
 const { createCourseFunction,getAllCourseFunction,deleteCourseFunction,addStudentFunction,deleteStudentFunction,viewAllStudentsFunction,createBatchFunction,getAllBatchesFunction } = require('../Repo/Repo')
+const { makePaymentFuncion } = require('../UseCause/UseCause')
 
 const createCourse = async (req,res) => {
     try {
@@ -142,6 +143,24 @@ const getAllBatches = async (req,res) => {
 }
 
 
+const makePayment = async (req,res) => {
+    try {
+        const data = req.body 
+        const payment = await makePaymentFuncion(data)
+          res.status(200).json({
+            success:true,
+            message:"successfully done payment",
+            payment,
+        })
+    } catch (error) {
+        console.error(error,"error in payment")
+        res.status(500).json({
+        success:false,
+        message:"internal server error"
+       })
+    }
+}
 
 
-module.exports = { createCourse,getAllCourse,courseDelete,addStudent,deleteStudent,viewAllStudents,createBatch,getAllBatches }
+
+module.exports = { createCourse,getAllCourse,courseDelete,addStudent,deleteStudent,viewAllStudents,createBatch,getAllBatches,makePayment }

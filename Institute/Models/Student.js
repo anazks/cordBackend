@@ -28,7 +28,22 @@ const studentSchema = new mongoose.Schema({
 
     },
     totalFeesPaid:{
-        type:String,
+        type:Number,
+    },
+    paymentStatus:{
+      type:String,
+      enum:["paid","unpaid","partial"],
+      default:"unpaid"
+    },
+    dueDate:{
+      type:Date,
+    },
+    dueStatus:{
+      type:Boolean,
+     default:false
+    },
+    firstPaymentData:{
+      type:Date,
     }
 },{timestamps:true})
 

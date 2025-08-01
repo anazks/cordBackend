@@ -31,8 +31,8 @@ async function db() {
 
 db()
 
-schedule.scheduleJob('*/10 * * * * *',findDueStudents)
-schedule.scheduleJob('*/10 * * * * *',sendDueReminders)
+schedule.scheduleJob('0 0 */1 * * *',findDueStudents)
+schedule.scheduleJob('0 0 */1 * * *',sendDueReminders)
 
 app.listen(port, () => {    
     console.log(`Server is running on port ${port}`);

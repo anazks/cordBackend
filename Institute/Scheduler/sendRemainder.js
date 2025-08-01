@@ -15,7 +15,7 @@ const sendWhatsAppMessage = async (to, message) => {
         const result = await client.messages.create({
             body: message,
             from: fromWhatsAppNumber,
-            to: `whatsapp:+14155238886` // e.g., whatsapp:+91XXXXXXXXXX
+            to: `whatsapp:+91${to}` // e.g., whatsapp:+91XXXXXXXXXX
         });
         console.log(`✅ Message sent to ${to}`);
     } catch (err) {

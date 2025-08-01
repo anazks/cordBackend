@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createCourse,getAllCourse,courseDelete,addStudent,deleteStudent,viewAllStudents,createBatch,getAllBatches,makePayment } = require('../Controller/Controller')
+const { createCourse,getAllCourse,courseDelete,addStudent,deleteStudent,viewAllStudents,createBatch,getAllBatches,makePayment,fetchProfile } = require('../Controller/Controller')
 const verifyToken = require('../../Middleware/verifyToken');
 const { verify } = require('jsonwebtoken');
 
@@ -13,6 +13,7 @@ router.get('/test', (req, res) => {
     });
 });
 
+router.route('/profile/:id').get(verifyToken,fetchProfile)
 router.route('/course').post(verifyToken,createCourse)
 router.route('/course/:id').get(verifyToken,getAllCourse)
 router.route('/course/:id').delete(verifyToken,courseDelete)

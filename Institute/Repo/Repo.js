@@ -3,6 +3,7 @@ const Course = require('../Models/Course');
 const { findByIdAndDelete } = require('../Models/Institute');
 const Student = require('../Models/Student')
 const Batch = require('../Models/Batch')
+const Institute = require('../Models/Institute')
 
 module.exports.createCourseFunction = async (data) => {
     try {
@@ -102,3 +103,12 @@ module.exports.findMonthlyFees = async (studentId) => {
         throw error; // rethrow if needed
     }
 };
+
+module.exports.fetchProfileFunction = async (instituteId) => {
+    try {
+        const profile = await Institute.findById(instituteId);
+        return profile
+    } catch (error) {
+        console.error(error)
+    }
+}

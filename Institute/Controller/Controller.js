@@ -1,6 +1,7 @@
 const express = require('express')
-const { createCourseFunction,getAllCourseFunction,deleteCourseFunction,addStudentFunction,deleteStudentFunction,viewAllStudentsFunction,createBatchFunction,getAllBatchesFunction } = require('../Repo/Repo')
-const { makePaymentFuncion } = require('../UseCause/UseCause')
+const { createCourseFunction,getAllCourseFunction,deleteCourseFunction,addStudentFunction,deleteStudentFunction,viewAllStudentsFunction,createBatchFunction,getAllBatchesFunction,fetchProfileFunction } = require('../Repo/Repo')
+const { makePaymentFuncion } = require('../UseCause/UseCause');
+const { EsimProfilePage } = require('twilio/lib/rest/supersim/v1/esimProfile');
 
 const createCourse = async (req,res) => {
     try {
@@ -161,6 +162,28 @@ const makePayment = async (req,res) => {
     }
 }
 
+const fetchProfile = async (req,res) => {
+    try {
+        const instituteId = req.params.id 
+        const profile = await fetchProfileFunction(instituteId)
+        if(profile == null){
+            res.status(500).json({
+                success:false,
+                message:"internal server error",
+            })
+        }else{
+            res.status(200).json({
+            success:true,
+            message:"successfully fetched profile",
+            profile
+        })
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 
-module.exports = { createCourse,getAllCourse,courseDelete,addStudent,deleteStudent,viewAllStudents,createBatch,getAllBatches,makePayment }
+
+
+module.exports = { createCourse,getAllCourse,courseDelete,addStudent,deleteStudent,viewAllStudents,createBatch,getAllBatches,makePayment,fetchProfile }

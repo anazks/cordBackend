@@ -4,6 +4,7 @@ const { findByIdAndDelete } = require('../Models/Institute');
 const Student = require('../Models/Student')
 const Batch = require('../Models/Batch')
 const Institute = require('../Models/Institute')
+const Payments = require('../Models/Payments')
 
 module.exports.createCourseFunction = async (data) => {
     try {
@@ -108,6 +109,33 @@ module.exports.fetchProfileFunction = async (instituteId) => {
     try {
         const profile = await Institute.findById(instituteId);
         return profile
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+module.exports.updateStudentFunction = async (studentId,studentData) => {
+    try {
+        const student = await Student.findByIdAndUpdate(studentId, {$set:studentData},{new:true})
+        return student
+    } catch (error) {
+        console.error(error)
+    } 
+}
+
+module.exports.updateBatchFunction = async (BatchId,batchData) => {
+    try {
+        const batch = await Batch.findByIdAndUpdate(BatchId,{$set:batchData},{new:true})
+        return batch
+    } catch (error) {
+        console.error(error)
+    }   
+}
+
+module.exports.viewPaymentsFunction = async (instituteId) => {
+    try {
+        const payments = await Payments.find({recevingInstitutionId:instituteId})
+        return payments
     } catch (error) {
         console.error(error)
     }

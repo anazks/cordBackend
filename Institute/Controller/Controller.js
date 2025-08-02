@@ -1,5 +1,5 @@
 const express = require('express')
-const { createCourseFunction,getAllCourseFunction,deleteCourseFunction,addStudentFunction,deleteStudentFunction,viewAllStudentsFunction,createBatchFunction,getAllBatchesFunction,fetchProfileFunction } = require('../Repo/Repo')
+const { createCourseFunction,getAllCourseFunction,deleteCourseFunction,addStudentFunction,deleteStudentFunction,viewAllStudentsFunction,createBatchFunction,getAllBatchesFunction,fetchProfileFunction,updateStudentFunction,updateBatchFunction,viewPaymentsFunction } = require('../Repo/Repo')
 const { makePaymentFuncion } = require('../UseCause/UseCause');
 const { EsimProfilePage } = require('twilio/lib/rest/supersim/v1/esimProfile');
 
@@ -183,7 +183,71 @@ const fetchProfile = async (req,res) => {
     }
 }
 
+const updateStudent = async (req,res) => {
+    try {
+        const studentId = req.params.id
+        const studentData = req.body
+        const student = await updateStudentFunction(studentId,studentData)
+        if(student == null){
+            res.status(500).json({
+                success:true,
+                message:"internal server error",
+                student
 
+            })
+        }else{
+            res.status(200).json({
+                success:true,
+                message:"successfully udated student",
+                student
+            })
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
 
+const updateBatch = async (req,res) => {
+    try {
+        const batchId = req.params.id
+        const batchData = req.body
+        const batch = await updateBatchFunction(batchId,batchData)
+        if(!batch){
+            res.status(500).json({
+                success:true,
+                message:"internal server error"
+            })
+        }else{
+            res.status(200).json({
+                success:true,
+                message:"successfully updated batch",
+                batch
+            })
+        }
+    } catch (error) {
+        
+    }
+}
 
-module.exports = { createCourse,getAllCourse,courseDelete,addStudent,deleteStudent,viewAllStudents,createBatch,getAllBatches,makePayment,fetchProfile }
+const viewPayments = async (req,res) => {
+    try {
+        const instituteId = req.params.id
+        const payments = await viewPaymentsFunction(instituteId)
+        if(!payments){
+            res.status(500).json({
+                success:true,
+                message:"internal server error"
+            })
+        }else{
+            res.status(200).json({
+                success:true,
+                message:"successfully fetch all payments of insitute",
+                payments
+            })
+        }
+    } catch (error) {
+        console.error(error,"error in viewPayments")
+    }
+}
+
+module.exports = { createCourse,getAllCourse,courseDelete,addStudent,deleteStudent,viewAllStudents,createBatch,getAllBatches,makePayment,fetchProfile,updateStudent,updateBatch,viewPayments }
